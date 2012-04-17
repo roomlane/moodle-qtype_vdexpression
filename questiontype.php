@@ -31,7 +31,7 @@ class qtype_vdformula extends question_type {
         return array('vdmarker');
     }
  
-	 public function extra_question_fields() {
+    public function extra_question_fields() {
         return Array('qtype_vdformula',
                      'vd_correctanswer');
     }

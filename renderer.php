@@ -34,7 +34,7 @@ require_once($CFG->dirroot . '/question/type/vdmarker/venndiagram.php');
  * @copyright  2010 The Open University
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
-class qtype_vdmarker_renderer extends qtype_with_combined_feedback_renderer {
+class qtype_vdformula_renderer extends qtype_with_combined_feedback_renderer {
 
     public function formulation_and_controls(question_attempt $qa,
             question_display_options $options) {
@@ -45,23 +45,34 @@ class qtype_vdmarker_renderer extends qtype_with_combined_feedback_renderer {
         $output = html_writer::tag('div', $questiontext, array('class' => 'qtext'));
         
         $vdid = str_replace(':', '_', $qa->get_qt_field_name('vdqa'));
-        $vdstate = $question->get_response($qa);
+        $vdformula = $question->get_response($qa);
+        
+        //TODO: convert $vdformula to $vdstate
+        //      also should show if the formula was syntactically correct
+        //$vdstate = qtype_vdmarker_vd3::state_from_formula($vdformula);
         
         if (question_display_options::VISIBLE == $options->rightanswer) {
             $t = new html_table();
-            $t->attributes = array('class' => 'vd-vompare-table');
+            $t->attributes = array('class' => 'vd-compare-table');
             $t->head = array(get_string('answer', 'question'), get_string('correct_answer', 'qtype_vdmarker'));
 
             $leftcell = $this->output_diagram_readonly($vdid . '_response', $vdstate);
             $rightcell = $this->output_diagram_readonly($vdid . '_correct', $question->vd_correctanswer);
  
-            $t->data = array( array($leftcell, $rightcell) );
+            $t->data = array( array($vdformula, ''),
+                              array($leftcell, $rightcell) );
             
             $output .= html_writer::table($t);
         } else if ($options->readonly) {
+            $output .= html_writer::tag('div', $vdformula, array('class' => 'vdformula-answer'));
             $output .= $this->output_diagram_readonly($vdid, $vdstate);
         } else {
-            $output .= $this->output_diagram_interactive($vdid, $vdstate, $qa->get_qt_field_name('vdstate') );
+            //TODO: output valid characters so that student can copy-paste them when needed
+            
+            //TODO: add js to assist formula editing - listend keyboard and places right characters into vdformula field
+            //      &,v,-,',0,u,a,b,c
+            
+//            $output .= $this->output_diagram_interactive($vdid, $vdstate, $qa->get_qt_field_name('vdstate') );
         }
         return $output;
     }
@@ -71,18 +82,5 @@ class qtype_vdmarker_renderer extends qtype_with_combined_feedback_renderer {
         $vd->set_state($state);
         $vd->readonly = true;
         return $vd->render();
-    }
-    
-    private function output_diagram_interactive($id, $state, $fieldname) {
-        $vd = new qtype_vdmarker_vd3($id);
-        $vd->set_state($state);
-        $vd->fieldtoupdate = $fieldname;
-        
-        $hiddenfield = array('type'  => 'hidden',
-                             'name'  => $vd->fieldtoupdate,
-                             'id'  => str_replace(':', '_', $vd->fieldtoupdate),
-                             'value' => $vd->get_state());
-        return html_writer::empty_tag('input', $hiddenfield) . 
-               $vd->render();
     }
 }
