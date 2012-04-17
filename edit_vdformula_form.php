@@ -26,7 +26,7 @@
 
 defined('MOODLE_INTERNAL') || die();
 
-require_once($CFG->dirroot . '/question/type/vdmarker/venndiagram.php');
+require_once($CFG->dirroot . '/question/type/vdmarker/edit_vdmarker_form_base.php');
 
 /**
  * Venn diagram formula question definition editing form.
@@ -34,34 +34,12 @@ require_once($CFG->dirroot . '/question/type/vdmarker/venndiagram.php');
  * @copyright  2009 The Open University
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
-class qtype_vdformula_edit_form extends question_edit_form {
+class qtype_vdformula_edit_form extends qtype_vdmarker_edit_form_base {
 
     public function qtype() {
         return 'vdformula';
     }
     
-	//TODO: move to base class because it's copy from vdmarker
-    /**
-     * Adds the fields for showing the Venn's diagram where teacher can define the areas of correct answer.
-     * 
-     * @param MoodleQuickForm $mform 
-     */
-    protected function add_vd_fields($mform) {
-        $vd = new qtype_vdmarker_vd3("correct_answer_vd");
-        $vd->readonly = false;
-        if (isset($this->question->options)) {
-            $state = $this->question->options->vd_correctanswer;
-        } else {
-            $state = 0;
-        }
-        $vd->set_state($state);
-        $vd->fieldtoupdate = 'vd_correctanswer';
-        $mform->addElement('hidden', $vd->fieldtoupdate, $vd->get_state(), 'id="' . str_replace(':', '_', $vd->fieldtoupdate) . '"');
-        $mform->addElement('static', 'diagram', get_string('correct_answer', 'qtype_vdmarker'), $vd->render());
-        unset($vd);
-    }
-    
-
     protected function definition_inner($mform) {
         $this->add_vd_fields($mform);
         

@@ -25,10 +25,9 @@
  */ 
 
 $string['addingvdformula'] = 'Adding Venn diagram to formula.';
-$string['editingvdmarker'] = 'Editing Venn diagram to formula.';
-$string['vdformula'] = 'Venn diagram to formula.';
-$string['vdmarkersummary'] = 'Construct set theory formula according to shown Venn diagram.';
-$string['vdmarker_help'] = 'Teacher can define the question text and correct answer as a Venn diagram. Student has to produce a set theory formual according to the shown Venn diagram.';
-$string['correct_answer'] = 'Correct answer'; // text that appears left from the diagram on the question editing form
+$string['editingvdformula'] = 'Editing Venn diagram to formula.';
+$string['vdformula'] = 'Venn diagram to formula';
+$string['vdformulasummary'] = 'Construct set theory formula according to shown Venn diagram.';
+$string['vdformula_help'] = 'Teacher can define the question text and correct answer as a Venn diagram. Student has to produce a set theory formual according to the shown Venn diagram.';
 
 // TODO add any other requred strings.

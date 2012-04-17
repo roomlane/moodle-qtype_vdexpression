@@ -27,7 +27,11 @@ defined('MOODLE_INTERNAL') || die();
  */
 class qtype_vdformula extends question_type {
 
-    public function extra_question_fields() {
+    public function requires_qtypes() {
+        return array('vdmarker');
+    }
+ 
+	 public function extra_question_fields() {
         return Array('qtype_vdformula',
                      'vd_correctanswer');
     }
