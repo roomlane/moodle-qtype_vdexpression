@@ -36,19 +36,16 @@ class qtype_vdformula_question extends question_graded_automatically {
     public $vd_correctanswer = 0;
 
     public function get_expected_data() {
-        //TODO: expect only formula as text
-		return array('vdformula' => PARAM_TEXT);
+        return array('vdformula' => PARAM_TEXT);
     }
 
     public function get_correct_response() {
-
-        //TODO: don't provide it. We don't know the correct answer text representation.
-		return null;
-		//return array('vdstate' => $this->vd_correctanswer);
+	return null;
     }
 
     public function get_validation_error(array $response) {
-        return '';
+        //TODO: syntax check
+        return 'invalid formula..';
     }
 
     public function grade_response(array $response) {
@@ -61,11 +58,15 @@ class qtype_vdformula_question extends question_graded_automatically {
     public function is_complete_response(array $response) {
         //TODO: do a syntax check
 		//      empty formula = U
-		return fasle;
+		return false;
+    }
+    
+    public function is_gradable_response(array $response) {
+        return true;
     }
 
     public function is_same_response(array $prevresponse, array $newresponse) {
-    	if (!question_utils::arrays_same_at_key_integer($prevresponse, $newresponse, 'vdformula')) {
+    	if (!question_utils::arrays_same_at_key($prevresponse, $newresponse, 'vdformula')) {
             return false;
         }
         return true;

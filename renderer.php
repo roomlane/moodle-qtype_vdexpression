@@ -36,8 +36,7 @@ require_once($CFG->dirroot . '/question/type/vdmarker/venndiagram.php');
  */
 class qtype_vdformula_renderer extends qtype_with_combined_feedback_renderer {
 
-    public function formulation_and_controls(question_attempt $qa,
-            question_display_options $options) {
+    public function formulation_and_controls(question_attempt $qa, question_display_options $options) {
         $question = $qa->get_question();
 
         $questiontext = $question->format_questiontext($qa);
@@ -67,13 +66,24 @@ class qtype_vdformula_renderer extends qtype_with_combined_feedback_renderer {
             $output .= html_writer::tag('div', $vdformula, array('class' => 'vdformula-answer'));
             $output .= $this->output_diagram_readonly($vdid, $vdstate);
         } else {
-            //TODO: output valid characters so that student can copy-paste them when needed
+            $output .= $this->output_diagram_readonly($vdid, $question->vd_correctanswer);
             
-            //TODO: add js to assist formula editing - listend keyboard and places right characters into vdformula field
-            //      &,v,-,',0,u,a,b,c
+            $output .= html_writer::tag('div', get_string('chars_for_copy_paste_caption', 'qtype_vdmarker') . ': ', array('class' => 'vdmarker-for-copy-paste-caption'));
+            $output .= html_writer::tag('div', qtype_vdmarker_vd3::ALLOWED_CHARS, array('class' => 'vdmarker-for-copy-paste'));
             
-//            $output .= $this->output_diagram_interactive($vdid, $vdstate, $qa->get_qt_field_name('vdstate') );
+            
+            $formulafield = array('type'  => 'text', //TODO: something else here!
+                                  'name'  => $qa->get_qt_field_name('vdformula'),
+                                  'value' => s($vdformula));
+            $output .= html_writer::empty_tag('input', $formulafield);
         }
+
+        if ($qa->get_state() == question_state::$invalid) {
+            $output .= html_writer::nonempty_tag('div',
+                                        $question->get_validation_error($qa->get_last_qt_data()),
+                                        array('class' => 'validationerror'));
+        }
+        
         return $output;
     }
     
