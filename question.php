@@ -44,8 +44,7 @@ class qtype_vdformula_question extends question_graded_automatically {
     }
 
     public function get_validation_error(array $response) {
-        //TODO: syntax check
-        return 'invalid formula..';
+        return qtype_vdmarker_vd3::formula_syntax_check($response['vdformula']);
     }
 
     public function grade_response(array $response) {
@@ -56,9 +55,11 @@ class qtype_vdformula_question extends question_graded_automatically {
     }
 
     public function is_complete_response(array $response) {
-        //TODO: do a syntax check
-		//      empty formula = U
-		return false;
+        $error = qtype_vdmarker_vd3::formula_syntax_check($response['vdformula']);
+        if (null === $error) {
+            return true;
+        }
+	return false;
     }
     
     public function is_gradable_response(array $response) {
