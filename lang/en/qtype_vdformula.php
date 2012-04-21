@@ -24,10 +24,12 @@
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */ 
 
+// required by qtype standard
 $string['addingvdformula'] = 'Adding Venn diagram to formula.';
 $string['editingvdformula'] = 'Editing Venn diagram to formula.';
 $string['vdformula'] = 'Venn diagram to formula';
 $string['vdformulasummary'] = 'Construct set theory formula according to shown Venn diagram.';
 $string['vdformula_help'] = 'Teacher can define the question text and correct answer as a Venn diagram. Student has to produce a set theory formual according to the shown Venn diagram.';
 
-// TODO add any other requred strings.
+// other
+$string['default_question_text'] = 'Construct a set theory formula according to the shown Venn\'s diagram. You can copy-paste the valid characters.'; // this text will appear initially in the question text field for teacher
