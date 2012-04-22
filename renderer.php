@@ -69,7 +69,7 @@ class qtype_vdformula_renderer extends qtype_with_combined_feedback_renderer {
             $output .= $this->output_diagram_readonly($vdid, $question->vd_correctanswer);
             
             $output .= html_writer::tag('div', get_string('chars_for_copy_paste_caption', 'qtype_vdmarker') . ': ', array('class' => 'vdmarker-for-copy-paste-caption'));
-            $output .= html_writer::tag('div', qtype_vdmarker_vd3::ALLOWED_CHARS, array('class' => 'vdmarker-for-copy-paste'));
+            $output .= html_writer::tag('div', qtype_vdmarker_vd3_formula::ALLOWED_CHARS, array('class' => 'vdmarker-for-copy-paste'));
             
             
             $formulafield = array('type'  => 'text', //TODO: something else here!
