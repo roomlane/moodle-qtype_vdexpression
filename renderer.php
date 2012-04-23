@@ -42,46 +42,38 @@ class qtype_vdformula_renderer extends qtype_with_combined_feedback_renderer {
         $questiontext = $question->format_questiontext($qa);
 
         $output = html_writer::tag('div', $questiontext, array('class' => 'qtext'));
-        
+
         $vdid = str_replace(':', '_', $qa->get_qt_field_name('vdqa'));
+        $output .= $this->output_diagram_readonly($vdid, $question->vd_correctanswer);
+
+        $output .= html_writer::tag('div', get_string('chars_for_copy_paste_caption', 'qtype_vdmarker') . ': ', array('class' => 'vdmarker-for-copy-paste-caption'));
+        $output .= html_writer::tag('div', qtype_vdmarker_vd3_formula::ALLOWED_CHARS, array('class' => 'vdmarker-for-copy-paste'));
+        
         $vdformula = $question->get_response($qa);
         
-        //TODO: convert $vdformula to $vdstate
-        //      also should show if the formula was syntactically correct
-        //$vdstate = qtype_vdmarker_vd3::state_from_formula($vdformula);
-        
-        if (question_display_options::VISIBLE == $options->rightanswer) {
-            $t = new html_table();
-            $t->attributes = array('class' => 'vd-compare-table');
-            $t->head = array(get_string('answer', 'question'), get_string('correct_answer', 'qtype_vdmarker'));
-
-            $leftcell = $this->output_diagram_readonly($vdid . '_response', $vdstate);
-            $rightcell = $this->output_diagram_readonly($vdid . '_correct', $question->vd_correctanswer);
- 
-            $t->data = array( array($vdformula, ''),
-                              array($leftcell, $rightcell) );
-            
-            $output .= html_writer::table($t);
-        } else if ($options->readonly) {
-            $output .= html_writer::tag('div', $vdformula, array('class' => 'vdformula-answer'));
-            $output .= $this->output_diagram_readonly($vdid, $vdstate);
-        } else {
-            $output .= $this->output_diagram_readonly($vdid, $question->vd_correctanswer);
-            
-            $output .= html_writer::tag('div', get_string('chars_for_copy_paste_caption', 'qtype_vdmarker') . ': ', array('class' => 'vdmarker-for-copy-paste-caption'));
-            $output .= html_writer::tag('div', qtype_vdmarker_vd3_formula::ALLOWED_CHARS, array('class' => 'vdmarker-for-copy-paste'));
-            
-            
-            $formulafield = array('type'  => 'text', //TODO: something else here!
-                                  'name'  => $qa->get_qt_field_name('vdformula'),
-                                  'value' => s($vdformula));
-            $output .= html_writer::empty_tag('input', $formulafield);
+        $formulafield = array('type'  => 'text',
+                                'name'  => $qa->get_qt_field_name('vdformula'),
+                                'value' => s($vdformula),
+                                'size' => 80);
+        if ($options->readonly) {
+            $formulafield['readonly'] = 'readonly';
         }
 
+        $output .= html_writer::empty_tag('input', $formulafield);
         if ($qa->get_state() == question_state::$invalid) {
             $output .= html_writer::nonempty_tag('div',
                                         $question->get_validation_error($qa->get_last_qt_data()),
-                                        array('class' => 'validationerror'));
+                                        array('class' => 'vdformula-validationerror'));
+        }
+        if ($options->readonly) {
+            $f = new qtype_vdmarker_vd3_formula();
+            $vdstate = $f->formula_to_state($vdformula);
+            if (isset($vdstate)) {
+                $output .= html_writer::nonempty_tag('div',
+                                            get_string('corresponds_to_diagram', 'qtype_vdformula'),
+                                            array('class' => 'vdformula-responsecomment'));
+                $output .= $this->output_diagram_readonly($vdid . '_response', $vdstate);
+            }
         }
         
         return $output;

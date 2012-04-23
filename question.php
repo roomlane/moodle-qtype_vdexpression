@@ -33,7 +33,7 @@ class qtype_vdformula_question extends question_graded_automatically {
      *  
      * @var byte 
      */
-    public $vd_correctanswer = 0;
+    public $vd_correctanswer;
 
     public function get_expected_data() {
         return array('vdformula' => PARAM_TEXT);
@@ -49,10 +49,14 @@ class qtype_vdformula_question extends question_graded_automatically {
     }
 
     public function grade_response(array $response) {
-		//TODO: convert the formula to bitset and compare to correct answer
-        return null;
-		//$fraction = 1 - qtype_vdmarker_vd3::num_incorrect_areas($this->vd_correctanswer, $response['vdstate']) * $this->vd_penalty;
-        //return array($fraction, question_state::graded_state_for_fraction($fraction));
+        $f = new qtype_vdmarker_vd3_formula();
+        $state = $f->formula_to_state($response['vdformula']);
+        if ($state == $this->vd_correctanswer) {
+            $fraction = 1;
+        } else {
+            $fraction = 0;
+        }
+        return array($fraction, question_state::graded_state_for_fraction($fraction));
     }
 
     public function is_complete_response(array $response) {

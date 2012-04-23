@@ -33,3 +33,4 @@ $string['vdformula_help'] = 'Teacher can define the question text and correct an
 
 // other
 $string['default_question_text'] = 'Construct a set theory formula according to the shown Venn\'s diagram. You can copy-paste the valid characters.'; // this text will appear initially in the question text field for teacher
+$string['corresponds_to_diagram'] = 'This formula corresponds to the following Venn diagram:';
