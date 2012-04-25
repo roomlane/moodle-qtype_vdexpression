@@ -41,10 +41,24 @@ class qtype_vdformula_edit_form extends qtype_vdmarker_edit_form_base {
     }
     
     protected function definition_inner($mform) {
+        parent::definition_inner($mform);
+        
         $this->add_vd_fields($mform);
+        
+        $mform->addElement('text', 'vd_formula_maxlen', get_string('formula_max_len', 'qtype_vdformula'),
+                array('size' => 3));
+        $mform->setType('vd_formula_maxlen', PARAM_INT);
+        $mform->addHelpButton('vd_formula_maxlen', 'formula_max_len', 'qtype_vdformula');
+        
+        $mform->addElement('text', 'vd_formula_chars', get_string('formula_allowed_chars', 'qtype_vdformula'),
+                array('size' => 12));
+        $mform->setType('vd_formula_chars', PARAM_TEXT);
+        $mform->addHelpButton('vd_formula_chars', 'formula_allowed_chars', 'qtype_vdformula');
+        $mform->setDefault('vd_formula_chars', qtype_vdmarker_vd3_formula::ALLOWED_CHARS);
         
         $this->add_combined_feedback_fields(true);
 
         $this->add_interactive_settings(true, true);
    }
+  
 }

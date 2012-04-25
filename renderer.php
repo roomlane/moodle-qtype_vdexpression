@@ -46,8 +46,19 @@ class qtype_vdformula_renderer extends qtype_with_combined_feedback_renderer {
         $vdid = str_replace(':', '_', $qa->get_qt_field_name('vdqa'));
         $output .= $this->output_diagram_readonly($vdid, $question->vd_correctanswer);
 
-        $output .= html_writer::tag('div', get_string('chars_for_copy_paste_caption', 'qtype_vdmarker') . ': ', array('class' => 'vdmarker-for-copy-paste-caption'));
-        $output .= html_writer::tag('div', qtype_vdmarker_vd3_formula::ALLOWED_CHARS, array('class' => 'vdmarker-for-copy-paste'));
+        $f = new qtype_vdmarker_vd3_formula($question->vd_formula_maxlen, $question->vd_formula_chars);
+
+        $output .= html_writer::tag('div', 
+                                    get_string('chars_for_copy_paste_caption', 'qtype_vdmarker') . ': ' . 
+                                               $f->get_allowed_chars(), 
+                                    array('class' => 'vdmarker-for-copy-paste'));
+        
+        if ($f->get_max_len() >= 1) {
+            $output .= html_writer::tag('div', 
+                                       get_string('formula_max_len', 'qtype_vdformula') . ': ' . 
+                                                  $f->get_max_len(), 
+                                       array('class' => 'vdformula-length-limit'));
+        }
         
         $vdformula = $question->get_response($qa);
         
@@ -66,7 +77,6 @@ class qtype_vdformula_renderer extends qtype_with_combined_feedback_renderer {
                                         array('class' => 'vdformula-validationerror'));
         }
         if ($options->readonly) {
-            $f = new qtype_vdmarker_vd3_formula($question->vd_formula_maxlen, $question->vd_formula_chars);
             $vdstate = $f->formula_to_state($vdformula);
             if (isset($vdstate)) {
                 $output .= html_writer::nonempty_tag('div',
