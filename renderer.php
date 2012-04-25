@@ -66,7 +66,7 @@ class qtype_vdformula_renderer extends qtype_with_combined_feedback_renderer {
                                         array('class' => 'vdformula-validationerror'));
         }
         if ($options->readonly) {
-            $f = new qtype_vdmarker_vd3_formula();
+            $f = new qtype_vdmarker_vd3_formula($question->vd_formula_maxlen, $question->vd_formula_chars);
             $vdstate = $f->formula_to_state($vdformula);
             if (isset($vdstate)) {
                 $output .= html_writer::nonempty_tag('div',

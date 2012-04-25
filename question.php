@@ -35,6 +35,23 @@ class qtype_vdformula_question extends question_graded_automatically {
      */
     public $vd_correctanswer;
 
+    /**
+     * Max allowed lenght of the formula.
+     * Anything less than 1 means unlimited
+     * 
+     * @var int
+     */
+    public $vd_formula_maxlen;
+    
+    /**
+     * Allowed characters in the formula defined by teacher.
+     * Empty or undefined means that all legal characrters are allowed.
+     * Characters not in qtype_vdmarker_vd3_formula::ALLOWED_CHARS are just ignored
+     * 
+     * @var string 
+     */
+    public $vd_formula_chars;
+
     public function get_expected_data() {
         return array('vdformula' => PARAM_TEXT);
     }
@@ -44,12 +61,12 @@ class qtype_vdformula_question extends question_graded_automatically {
     }
 
     public function get_validation_error(array $response) {
-        $f = new qtype_vdmarker_vd3_formula();
+        $f = new qtype_vdmarker_vd3_formula($this->vd_formula_maxlen, $this->vd_formula_chars);
         return $f->syntax_check($response['vdformula']);
     }
 
     public function grade_response(array $response) {
-        $f = new qtype_vdmarker_vd3_formula();
+        $f = new qtype_vdmarker_vd3_formula($this->vd_formula_maxlen, $this->vd_formula_chars);
         $state = $f->formula_to_state($response['vdformula']);
         if ($state == $this->vd_correctanswer) {
             $fraction = 1;
@@ -60,7 +77,7 @@ class qtype_vdformula_question extends question_graded_automatically {
     }
 
     public function is_complete_response(array $response) {
-        $f = new qtype_vdmarker_vd3_formula();
+        $f = new qtype_vdmarker_vd3_formula($this->vd_formula_maxlen, $this->vd_formula_chars);
         $error =  $f->syntax_check($response['vdformula']);
         if (null === $error) {
             return true;

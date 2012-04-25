@@ -33,7 +33,9 @@ class qtype_vdformula extends question_type {
  
     public function extra_question_fields() {
         return Array('qtype_vdformula',
-                     'vd_correctanswer');
+                     'vd_correctanswer',
+                     'vd_formula_maxlen',
+                     'vd_formula_chars');
     }
 
 }
