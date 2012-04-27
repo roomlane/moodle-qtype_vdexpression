@@ -71,9 +71,11 @@ class qtype_vdformula_renderer extends qtype_with_combined_feedback_renderer {
         }
 
         $output .= html_writer::empty_tag('input', $formulafield);
-        if ($qa->get_state() == question_state::$invalid) {
+        
+        $error = $f->syntax_check($vdformula);
+        if (isset($error)) {
             $output .= html_writer::nonempty_tag('div',
-                                        $question->get_validation_error($qa->get_last_qt_data()),
+                                        $error,
                                         array('class' => 'vdformula-validationerror'));
         }
         if ($options->readonly) {
