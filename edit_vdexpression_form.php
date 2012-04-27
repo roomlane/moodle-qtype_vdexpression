@@ -18,7 +18,7 @@
  * Defines the editing form for the Venn diagram question type.
  *
  * @package    rs_questiontypes
- * @subpackage vdformula
+ * @subpackage vdexpression
  * @author     immor@hot.ee
  * @copyright  &copy; 2012 Rommi Saar
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
@@ -29,15 +29,15 @@ defined('MOODLE_INTERNAL') || die();
 require_once($CFG->dirroot . '/question/type/vdmarker/edit_vdmarker_form_base.php');
 
 /**
- * Venn diagram formula question definition editing form.
+ * Venn diagram expression question definition editing form.
  *
  * @copyright  2009 The Open University
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
-class qtype_vdformula_edit_form extends qtype_vdmarker_edit_form_base {
+class qtype_vdexpression_edit_form extends qtype_vdmarker_edit_form_base {
 
     public function qtype() {
-        return 'vdformula';
+        return 'vdexpression';
     }
     
     protected function definition_inner($mform) {
@@ -45,16 +45,16 @@ class qtype_vdformula_edit_form extends qtype_vdmarker_edit_form_base {
         
         $this->add_vd_fields($mform);
         
-        $mform->addElement('text', 'vd_formula_maxlen', get_string('formula_max_len', 'qtype_vdformula'),
+        $mform->addElement('text', 'vd_expression_maxlen', get_string('expression_max_len', 'qtype_vdexpression'),
                 array('size' => 3));
-        $mform->setType('vd_formula_maxlen', PARAM_INT);
-        $mform->addHelpButton('vd_formula_maxlen', 'formula_max_len', 'qtype_vdformula');
+        $mform->setType('vd_expression_maxlen', PARAM_INT);
+        $mform->addHelpButton('vd_expression_maxlen', 'expression_max_len', 'qtype_vdexpression');
         
-        $mform->addElement('text', 'vd_formula_chars', get_string('formula_allowed_chars', 'qtype_vdformula'),
+        $mform->addElement('text', 'vd_expression_chars', get_string('expression_allowed_chars', 'qtype_vdexpression'),
                 array('size' => 12));
-        $mform->setType('vd_formula_chars', PARAM_TEXT);
-        $mform->addHelpButton('vd_formula_chars', 'formula_allowed_chars', 'qtype_vdformula');
-        $mform->setDefault('vd_formula_chars', qtype_vdmarker_vd3_formula::ALLOWED_CHARS);
+        $mform->setType('vd_expression_chars', PARAM_TEXT);
+        $mform->addHelpButton('vd_expression_chars', 'expression_allowed_chars', 'qtype_vdexpression');
+        $mform->setDefault('vd_expression_chars', qtype_vdmarker_vd3_expression::ALLOWED_CHARS);
         
         $this->add_combined_feedback_fields(true);
 

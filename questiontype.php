@@ -17,25 +17,25 @@
 defined('MOODLE_INTERNAL') || die();
 
 /**
- * The Venn diagram formula question type class.
+ * The Venn diagram expression question type class.
  *
  * @package    rs_questiontypes
- * @subpackage vdformula
+ * @subpackage vdexpression
  * @author     immor@hot.ee
  * @copyright  &copy; 2012 Rommi Saar
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
-class qtype_vdformula extends question_type {
+class qtype_vdexpression extends question_type {
 
     public function requires_qtypes() {
         return array('vdmarker');
     }
  
     public function extra_question_fields() {
-        return Array('qtype_vdformula',
+        return Array('qtype_vdexpression',
                      'vd_correctanswer',
-                     'vd_formula_maxlen',
-                     'vd_formula_chars');
+                     'vd_expression_maxlen',
+                     'vd_expression_chars');
     }
 
 }

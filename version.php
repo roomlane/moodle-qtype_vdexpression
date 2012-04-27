@@ -18,7 +18,7 @@
  * Version information for the Venn diagram question type.
  *
  * @package    rs_questiontypes
- * @subpackage vdformula
+ * @subpackage vdexpression
  * @author     immor@hot.ee
  * @copyright  &copy; 2012 Rommi Saar
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
@@ -26,6 +26,6 @@
 
 defined('MOODLE_INTERNAL') || die();
 
-$plugin->component = 'qtype_vdformula';
+$plugin->component = 'qtype_vdexpression';
 $plugin->version  = 2012041500;
 $plugin->requires = 2011070105.03;

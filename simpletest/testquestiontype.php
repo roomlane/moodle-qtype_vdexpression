@@ -22,17 +22,17 @@ require_once($CFG->dirroot . '/question/engine/simpletest/helpers.php');
  * Unit tests for the Venn diagram markers question definition class. 
  *
  * @package    rs_questiontypes
- * @subpackage vdformula
+ * @subpackage vdexpression
  * @author     immor@hot.ee
  * @copyright  &copy; 2012 Rommi Saar
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
-class qtype_vdformula_test extends UnitTestCase {
-    /** @var qtype_vdformula instance of the question type class to test. */
+class qtype_vdexpression_test extends UnitTestCase {
+    /** @var qtype_vdexpression instance of the question type class to test. */
     protected $qtype;
 
     public function setUp() {
-        $this->qtype = question_bank::get_qtype('vdformula');;
+        $this->qtype = question_bank::get_qtype('vdexpression');;
     }
 
     public function tearDown() {
@@ -40,7 +40,7 @@ class qtype_vdformula_test extends UnitTestCase {
     }
 
     public function test_name() {
-        $this->assertEqual($this->qtype->name(), 'vdformula');
+        $this->assertEqual($this->qtype->name(), 'vdexpression');
     }
 
     public function test_can_analyse_responses() {

@@ -21,12 +21,12 @@ require_once($CFG->dirroot . '/question/type/vdmarker/venndiagram.php');
  * Venn diagram question definition class.
  *
  * @package    rs_questiontypes
- * @subpackage vdformula
+ * @subpackage vdexpression
  * @author     immor@hot.ee
  * @copyright  &copy; 2012 Rommi Saar
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */ 
-class qtype_vdformula_question extends question_graded_automatically {
+class qtype_vdexpression_question extends question_graded_automatically {
     /**
      * Correct answer (coded) from question definition.
      * This variable is set by question engine automatically.
@@ -36,24 +36,24 @@ class qtype_vdformula_question extends question_graded_automatically {
     public $vd_correctanswer;
 
     /**
-     * Max allowed lenght of the formula.
+     * Max allowed lenght of the expression.
      * Anything less than 1 means unlimited
      * 
      * @var int
      */
-    public $vd_formula_maxlen;
+    public $vd_expression_maxlen;
     
     /**
-     * Allowed characters in the formula defined by teacher.
+     * Allowed characters in the expression defined by teacher.
      * Empty or undefined means that all legal characrters are allowed.
-     * Characters not in qtype_vdmarker_vd3_formula::ALLOWED_CHARS are just ignored
+     * Characters not in qtype_vdmarker_vd3_expression::ALLOWED_CHARS are just ignored
      * 
      * @var string 
      */
-    public $vd_formula_chars;
+    public $vd_expression_chars;
 
     public function get_expected_data() {
-        return array('vdformula' => PARAM_TEXT);
+        return array('vdexpression' => PARAM_TEXT);
     }
 
     public function get_correct_response() {
@@ -61,13 +61,13 @@ class qtype_vdformula_question extends question_graded_automatically {
     }
 
     public function get_validation_error(array $response) {
-        $f = new qtype_vdmarker_vd3_formula($this->vd_formula_maxlen, $this->vd_formula_chars);
-        return $f->syntax_check($response['vdformula']);
+        $f = new qtype_vdmarker_vd3_expression($this->vd_expression_maxlen, $this->vd_expression_chars);
+        return $f->syntax_check($response['vdexpression']);
     }
 
     public function grade_response(array $response) {
-        $f = new qtype_vdmarker_vd3_formula($this->vd_formula_maxlen, $this->vd_formula_chars);
-        $state = $f->formula_to_state($response['vdformula']);
+        $f = new qtype_vdmarker_vd3_expression($this->vd_expression_maxlen, $this->vd_expression_chars);
+        $state = $f->expression_to_state($response['vdexpression']);
         if ($state == $this->vd_correctanswer) {
             $fraction = 1;
         } else {
@@ -77,8 +77,8 @@ class qtype_vdformula_question extends question_graded_automatically {
     }
 
     public function is_complete_response(array $response) {
-        $f = new qtype_vdmarker_vd3_formula($this->vd_formula_maxlen, $this->vd_formula_chars);
-        $error =  $f->syntax_check($response['vdformula']);
+        $f = new qtype_vdmarker_vd3_expression($this->vd_expression_maxlen, $this->vd_expression_chars);
+        $error =  $f->syntax_check($response['vdexpression']);
         if (null === $error) {
             return true;
         }
@@ -90,7 +90,7 @@ class qtype_vdformula_question extends question_graded_automatically {
     }
 
     public function is_same_response(array $prevresponse, array $newresponse) {
-    	if (!question_utils::arrays_same_at_key($prevresponse, $newresponse, 'vdformula')) {
+    	if (!question_utils::arrays_same_at_key($prevresponse, $newresponse, 'vdexpression')) {
             return false;
         }
         return true;
@@ -107,6 +107,6 @@ class qtype_vdformula_question extends question_graded_automatically {
      * @return string, null if no previous attempt 
      */
     public function get_response(question_attempt $qa) {
-        return $qa->get_last_qt_var('vdformula', null);
+        return $qa->get_last_qt_var('vdexpression', null);
     }
 }

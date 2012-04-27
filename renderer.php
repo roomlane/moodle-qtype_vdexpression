@@ -18,7 +18,7 @@
  * Venn diagram marker question type renderer.
  *
  * @package    rs_questiontypes
- * @subpackage vdformula
+ * @subpackage vdexpression
  * @author     immor@hot.ee
  * @copyright  &copy; 2012 Rommi Saar
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
@@ -34,7 +34,7 @@ require_once($CFG->dirroot . '/question/type/vdmarker/venndiagram.php');
  * @copyright  2010 The Open University
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
-class qtype_vdformula_renderer extends qtype_with_combined_feedback_renderer {
+class qtype_vdexpression_renderer extends qtype_with_combined_feedback_renderer {
 
     public function formulation_and_controls(question_attempt $qa, question_display_options $options) {
         $question = $qa->get_question();
@@ -46,7 +46,7 @@ class qtype_vdformula_renderer extends qtype_with_combined_feedback_renderer {
         $vdid = str_replace(':', '_', $qa->get_qt_field_name('vdqa'));
         $output .= $this->output_diagram_readonly($vdid, $question->vd_correctanswer);
 
-        $f = new qtype_vdmarker_vd3_formula($question->vd_formula_maxlen, $question->vd_formula_chars);
+        $f = new qtype_vdmarker_vd3_expression($question->vd_expression_maxlen, $question->vd_expression_chars);
 
         $output .= html_writer::tag('div', 
                                     get_string('chars_for_copy_paste_caption', 'qtype_vdmarker') . ': ' . 
@@ -55,35 +55,35 @@ class qtype_vdformula_renderer extends qtype_with_combined_feedback_renderer {
         
         if ($f->get_max_len() >= 1) {
             $output .= html_writer::tag('div', 
-                                       get_string('formula_max_len', 'qtype_vdformula') . ': ' . 
+                                       get_string('expression_max_len', 'qtype_vdexpression') . ': ' . 
                                                   $f->get_max_len(), 
-                                       array('class' => 'vdformula-length-limit'));
+                                       array('class' => 'vdexpression-length-limit'));
         }
         
-        $vdformula = $question->get_response($qa);
+        $vdexpression = $question->get_response($qa);
         
-        $formulafield = array('type'  => 'text',
-                                'name'  => $qa->get_qt_field_name('vdformula'),
-                                'value' => s($vdformula),
+        $expressionfield = array('type'  => 'text',
+                                'name'  => $qa->get_qt_field_name('vdexpression'),
+                                'value' => s($vdexpression),
                                 'size' => 80);
         if ($options->readonly) {
-            $formulafield['readonly'] = 'readonly';
+            $expressionfield['readonly'] = 'readonly';
         }
 
-        $output .= html_writer::empty_tag('input', $formulafield);
+        $output .= html_writer::empty_tag('input', $expressionfield);
         
-        $error = $f->syntax_check($vdformula);
+        $error = $f->syntax_check($vdexpression);
         if (isset($error)) {
             $output .= html_writer::nonempty_tag('div',
                                         $error,
-                                        array('class' => 'vdformula-validationerror'));
+                                        array('class' => 'vdexpression-validationerror'));
         }
         if ($options->readonly) {
-            $vdstate = $f->formula_to_state($vdformula);
+            $vdstate = $f->expression_to_state($vdexpression);
             if (isset($vdstate)) {
                 $output .= html_writer::nonempty_tag('div',
-                                            get_string('corresponds_to_diagram', 'qtype_vdformula'),
-                                            array('class' => 'vdformula-responsecomment'));
+                                            get_string('corresponds_to_diagram', 'qtype_vdexpression'),
+                                            array('class' => 'vdexpression-responsecomment'));
                 $output .= $this->output_diagram_readonly($vdid . '_response', $vdstate);
             }
         }
