@@ -50,7 +50,7 @@ class qtype_vdexpression_renderer extends qtype_with_combined_feedback_renderer 
 
         $output .= html_writer::tag('div', 
                                     get_string('chars_for_copy_paste_caption', 'qtype_vdmarker') . ': ' . 
-                                               $f->get_allowed_chars(), 
+                                               $f->get_allowed_chars_formatted(), 
                                     array('class' => 'vdmarker-for-copy-paste'));
         
         if ($f->get_max_len() >= 1) {

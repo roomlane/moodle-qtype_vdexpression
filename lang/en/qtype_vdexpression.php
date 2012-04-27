@@ -24,6 +24,8 @@
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */ 
 
+require_once($CFG->dirroot . '/question/type/vdmarker/expression.php');
+
 // required by qtype standard
 $string['addingvdexpression'] = 'Adding Venn diagram to expression.';
 $string['editingvdexpression'] = 'Editing Venn diagram to expression.';
@@ -37,4 +39,4 @@ $string['corresponds_to_diagram'] = 'This expression corresponds to the followin
 $string['expression_max_len'] = 'Expression max. length';
 $string['expression_max_len_help'] = 'Expression max. allowed length. Anything below 1 means unlimited.';
 $string['expression_allowed_chars'] = 'Allowed characters';
-$string['expression_allowed_chars_help'] = 'Allowed characters in expression. Anyting other than (∅ABCU∩∪\\Δ\') is ignored. Leave empty for no limits.';
+$string['expression_allowed_chars_help'] = 'Allowed characters in expression. Anyting other than ' . qtype_vdmarker_vd3_expression::get_chars_formatted(qtype_vdmarker_vd3_expression::ALLOWED_CHARS) . ' is ignored. Leave empty for no limits.';
