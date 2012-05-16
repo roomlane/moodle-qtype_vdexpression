@@ -18,3 +18,5 @@ Alternatively, download the zip from
 unzip it into the question/type folder, and then rename the new folder to vdexpression.
 
 This question type require that also question type vdmarker to be installed. Available from https://github.com/roomlane/moodle-qtype_vdmarker
+
+Some example questions can be imported from Moodle XML format file "examples/et/küsimused-Hulgateooria-diagramm avaldiseks-20120515-1055.xml" (these are in Estonian).

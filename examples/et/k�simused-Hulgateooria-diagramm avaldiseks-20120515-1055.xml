@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<quiz>
+<!-- question: 0  -->
+  <question type="category">
+    <category>
+        <text>$course$/Default for Hulgateooria/näited/diagramm avaldiseks</text>
+
+    </category>
+  </question>
+
+<!-- question: 20  -->
+  <question type="vdmarker">
+    <name>
+      <text>märkija (AΔBΔC)\(A∩B∩C)</text>
+    </name>
+    <questiontext format="html">
+      <text><![CDATA[<p>Märkida Venn'i diagrammil piirkonnad, mis vastavad avaldisele (A<span>Δ</span>B<span>Δ</span>C)\(A<span>∩</span>B<span>∩</span>C).</p>]]></text>
+    </questiontext>
+    <generalfeedback format="html">
+      <text></text>
+    </generalfeedback>
+    <defaultgrade>1.0000000</defaultgrade>
+    <penalty>0.3333333</penalty>
+    <hidden>0</hidden>
+    <vd_correctanswer>22</vd_correctanswer>
+    <vd_penalty>1.0000000</vd_penalty>
+  </question>
+
+<!-- question: 17  -->
+  <question type="vdmarker">
+    <name>
+      <text>märkija A\(BΔC)</text>
+    </name>
+    <questiontext format="html">
+      <text><![CDATA[<p>Märkida Venn'i diagrammil piirkonnad, mis vastavad avaldisele A\(BΔC)</p>]]></text>
+    </questiontext>
+    <generalfeedback format="html">
+      <text></text>
+    </generalfeedback>
+    <defaultgrade>1.0000000</defaultgrade>
+    <penalty>0.3333333</penalty>
+    <hidden>0</hidden>
+    <vd_correctanswer>130</vd_correctanswer>
+    <vd_penalty>0.1250000</vd_penalty>
+  </question>
+
+<!-- question: 21  -->
+  <question type="vdmarker">
+    <name>
+      <text>märkija jaanalind</text>
+    </name>
+    <questiontext format="html">
+      <text><![CDATA[<p>Olgu A - kõik kahel jalal liikuvad elusolendid, B - kõik lennuvõimelised elusolendid ja C - kõik sulelised elusolendid. Väljendada Venn'i diagrammil jaanalinnu olemus.</p>]]></text>
+    </questiontext>
+    <generalfeedback format="html">
+      <text></text>
+    </generalfeedback>
+    <defaultgrade>1.0000000</defaultgrade>
+    <penalty>0.3333333</penalty>
+    <hidden>0</hidden>
+    <vd_correctanswer>32</vd_correctanswer>
+    <vd_penalty>1.0000000</vd_penalty>
+  </question>
+
+<!-- question: 22  -->
+  <question type="vdmarker">
+    <name>
+      <text>märkija varblane</text>
+    </name>
+    <questiontext format="html">
+      <text><![CDATA[<p>Olgu A - kõik kahel jalal liikuvad elusolendid, B - kõik lennuvõimelised elusolendid ja C - kõik sulelised elusolendid. Väljendada Venn'i diagrammil varblase olemus.</p>]]></text>
+    </questiontext>
+    <generalfeedback format="html">
+      <text></text>
+    </generalfeedback>
+    <defaultgrade>1.0000000</defaultgrade>
+    <penalty>0.3333333</penalty>
+    <hidden>0</hidden>
+    <vd_correctanswer>128</vd_correctanswer>
+    <vd_penalty>1.0000000</vd_penalty>
+  </question>
+
+</quiz>
